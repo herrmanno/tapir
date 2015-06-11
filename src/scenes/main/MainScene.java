@@ -9,8 +9,11 @@ public class MainScene extends ResponsiveScene {
 
 	public MainScene(Parent root) {
 		super(root);
-		String cssPath = css.CSS.class.getResource("main.css").toExternalForm();
-		getStylesheets().add(cssPath);
+		String cssMain = css.CSS.class.getResource("main.css").toExternalForm();
+		getStylesheets().add(cssMain);
+		
+		String cssFlat = css.CSS.class.getResource("flat.css").toExternalForm();
+		getStylesheets().add(cssFlat);
 		
 	}
 

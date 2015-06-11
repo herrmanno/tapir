@@ -1,0 +1,70 @@
+* {
+	-fx-bg: #fff;
+	-fx-bg-light: derive(-fx-bg, 30%);
+	-fx-bg-dark: derive(-fx-bg, -30%);
+	-fx-text: #333;
+	-fx-main: #38c;
+	-fx-main-light: derive(-fx-main, 40%);
+	-fx-main-dark: derive(-fx-main, -40%);
+	-fx-accent: #c33;
+	-fx-warn: #a00;
+}
+
+* {
+	-fx-focus-color: transparent;
+}	
+
+.root,
+.scroll-pane,
+.split-pane,
+.border-pane *
+{
+	-fx-background-color: -fx-bg;
+}
+
+.button,
+.tab
+{
+	-fx-background-color: -fx-main;
+	-fx-text-fill: -fx-text;
+	-fx-effect: dropshadow(gaussian, -fx-bg-dark, 7, .2, 1, 2);
+	-fx-background-radius: 1;
+}
+
+.text-field 
+{
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-width: 0 0 1 0;
+	-fx-border-color: -fx-main;
+	
+}
+
+.combo-box {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-width: 0 0 1 0;
+	-fx-border-color: -fx-main;
+}
+
+.tab-pane .tab-header-area .headers-region,
+.tab-pane .tab-header-area .tab-header-background
+ {
+	-fx-background-color: -fx-bg;
+	-fx-text-fill: -fx-text;
+	-fx-effect: null;
+}
+
+.table-view .column-header,
+.combo-box .arrow-button .arrow
+{
+	-fx-background-color: -fx-main;
+	-fx-text-fill: -fx-text;
+	-fx-effect: null;
+	-fx-background-radius: 0;
+	-fx-border-color: -fx-main-light;
+}
+
+.split-pane .split-pane-divider {
+	-fx-background-color: -fx-bg-dark;
+}

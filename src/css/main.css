@@ -1,5 +1,3 @@
-@import "responsive.css";
-
 .root.width-xs .width-s {visibility: hidden;}
 .root.width-xs .width-m {visibility: hidden;}
 .root.width-xs .width-l {visibility: hidden;}
@@ -70,12 +68,6 @@
 /*
  * Main
  */
-
-
-* {
-	-fx-focus-color: transparent;
-    -fx-effect: null;
-}
 
 
 .text-field:focused, .text-area:focused {
