@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.main.MainController">
+   <children>
+      <BorderPane minWidth="500.0" prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox>
+                     <children>
+                        <HBox fillHeight="false" prefWidth="798.0" spacing="15.0">
+                           <children>
+                              <ComboBox fx:id="combo_method" prefWidth="100.0" promptText="Method" />
+                              <TextField id="text_location" fx:id="text_location" onAction="#doRequest" promptText="location" HBox.hgrow="ALWAYS" />
+                              <Button id="btn_send" fx:id="btn_send" alignment="CENTER" mnemonicParsing="false" onAction="#doRequest" text="Send" />
+                           </children>
+                        </HBox>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <tabs>
+                                        <Tab text="Header">
+                                          <content>
+                                                <VBox>
+                                                   <children>
+                                                      <ListView fx:id="list_header" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                                      <Button mnemonicParsing="false" prefWidth="9999.0" text="Add Header" VBox.vgrow="ALWAYS" />
+                                                   </children>
+                                                </VBox>
+                                          </content>
+                                        </Tab>
+                                        <Tab text="Cookies">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <TableView fx:id="tbl_cookies" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                                                              <columns>
+                                                                <TableColumn fx:id="col_cookie_name" prefWidth="75.0" sortable="false" text="Name" />
+                                                                <TableColumn fx:id="col_cookie_value" prefWidth="75.0" sortable="false" text="Value" />
+                                                              </columns>
+                                                               <columnResizePolicy>
+                                                                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                               </columnResizePolicy>
+                                                            </TableView>
+                                                            <Button fx:id="btn_add_cookie" mnemonicParsing="false" prefHeight="25.0" prefWidth="633.0" text="Add Cookie">
+                                                               <VBox.margin>
+                                                                  <Insets />
+                                                               </VBox.margin>
+                                                            </Button>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                          <Tab text="Form-Data">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <TableView fx:id="tbl_formdata" editable="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                              <columns>
+                                                                <TableColumn prefWidth="75.0" text="Name" />
+                                                                <TableColumn prefWidth="75.0" text="Value" />
+                                                              </columns>
+                                                               <columnResizePolicy>
+                                                                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                               </columnResizePolicy>
+                                                            </TableView>
+                                                            <Button fx:id="btn_add_formdata" mnemonicParsing="false" prefHeight="25.0" prefWidth="630.0" text="Add Formdata" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </Tab>
+                                          <Tab text="Payload">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TextArea fx:id="text_payload" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <VBox layoutX="168.0" layoutY="45.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <tabs>
+                                        <Tab text="HTML">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" style="-fx-border: 1px solid black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                        <Tab text="RAW">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TextArea fx:id="text_raw" editable="false" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Tapir" />
+               </children>
+            </Pane>
+         </top>
+         <left>
+            <ListView fx:id="list_requests" focusTraversable="false" maxWidth="500.0" minWidth="100.0" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+      <AnchorPane mouseTransparent="true">
+         <children>
+            <Label fx:id="badge" focusTraversable="false" style="-fx-background-color: #0008; -fx-background-radius: 3; -fx-padding: 2 5 2 5;" text="Badge" textFill="#fffefe" AnchorPane.bottomAnchor="-50.0" AnchorPane.rightAnchor="15.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <VBox fx:id="overlay" alignment="CENTER" mouseTransparent="true" opacity="0.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: black;">
+         <children>
+            <ImageView fx:id="img_overlay" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>

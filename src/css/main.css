@@ -1,0 +1,122 @@
+@import "responsive.css";
+
+.root.width-xs .width-s {visibility: hidden;}
+.root.width-xs .width-m {visibility: hidden;}
+.root.width-xs .width-l {visibility: hidden;}
+
+.root.width-s .width-xs {visibility: hidden;}
+.root.width-s .width-m {visibility: hidden;}
+.root.width-s .width-l {visibility: hidden;}
+
+.root.width-m .width-s {visibility: hidden;}
+.root.width-m .width-xs {visibility: hidden;}
+.root.width-m .width-l {visibility: hidden;}
+
+.root.width-l .width-xs {visibility: hidden;}
+.root.width-l .width-s {visibility: hidden;}
+.root.width-l .width-m {visibility: hidden;}
+
+
+/*
+ * ScrollBar
+ */
+ 
+ /* The main scrollbar **track** CSS class  */
+ .scroll-bar:horizontal .track,
+ .scroll-bar:vertical .track{
+	-fx-background-color:transparent;
+	-fx-border-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-border-radius:2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+ .scroll-bar:horizontal .increment-button ,
+ .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 0 10 0;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+
+ .scroll-bar:vertical .increment-button ,
+ .scroll-bar:vertical .decrement-button {
+
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 10 0 0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow
+ {
+	-fx-shape: " ";	
+	-fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+ .scroll-bar:horizontal .thumb,
+ .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}
+
+
+/*
+ * Main
+ */
+
+
+* {
+	-fx-focus-color: transparent;
+    -fx-effect: null;
+}
+
+
+.text-field:focused, .text-area:focused {
+  -fx-background-color: transparent, -fx-box-border,-fx-control-inner-background;
+  -fx-background-insets: -1.4, 0, 1;
+  -fx-background-radius: 1.4, 0, 0;
+}
+
+
+#MethodLabel {
+	-fx-padding: 5px;
+	-fx-background-radius: 5px;
+}
+
+.green {
+	-fx-background-color: #7c7;
+}
+
+.red {
+	-fx-background-color: #c77;
+}
+
+
+.list-view.list-cell {
+	-fx-background-color: #fff;	
+}
+
+.list-cell:hover {
+	-fx-background-color: #eee;
+}
+
+.list-cell.border-bottom {
+	-fx-border-color: transparent transparent #aaa transparent;
+	-fx-border-style: solid;
+	-fx-border-width: 1;
+}
+
+
+.list-cell:empty {
+    -fx-opacity: 0;
+}
+
+
+
