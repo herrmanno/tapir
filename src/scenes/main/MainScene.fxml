@@ -10,6 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import com.github.herrmanno.fx.components.badgepane.BadgePane?>
 
 <StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.main.MainController">
    <children>
@@ -151,17 +152,8 @@
             <ListView fx:id="list_requests" focusTraversable="false" maxWidth="500.0" minWidth="200.0" prefHeight="200.0" prefWidth="250.0" style="-fx-border-width: 0 1 0 0;;" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
-      <Label fx:id="badge" focusTraversable="false" style="-fx-background-color: #0008; -fx-background-radius: 3; -fx-padding: 2 5 2 5; -fx-max-width: 200;" text="Badge" textFill="#fffefe" StackPane.alignment="BOTTOM_RIGHT">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <StackPane.margin>
-            <Insets />
-         </StackPane.margin>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Label>
+      <BadgePane fx:id="pane_badge">
+      </BadgePane>
       <AnchorPane mouseTransparent="true" />
       <VBox fx:id="overlay" alignment="BOTTOM_RIGHT" mouseTransparent="true" opacity="0.0" prefHeight="200.0" prefWidth="100.0">
          <children>
