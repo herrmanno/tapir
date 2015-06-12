@@ -67,7 +67,8 @@ public class RequestService {
 		}
 		
 		Request copy = new Request(r);
-		this.requests.remove(copy);
+		if(this.requests.contains(copy))
+			this.requests.remove(copy);
 		this.requests.add(0, copy);
 		
 		this.response.set(response);

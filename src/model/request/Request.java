@@ -10,7 +10,7 @@ public class Request {
 	public final StringProperty method = new SimpleStringProperty();
 	public final StringProperty location = new SimpleStringProperty();
 	public final ObservableList<Header> header = FXCollections.observableArrayList(new Header("Content-Type", "text/html"));
-	public final ObservableList<Cookie> cookies = FXCollections.observableArrayList(new Cookie("SessionID", "1234567"));
+	public final ObservableList<Cookie> cookies = FXCollections.observableArrayList(new Cookie("SessionID", "1234567"), new Cookie("", ""));
 	public final ObservableList<Formdata> formData = FXCollections.observableArrayList(new Formdata("hello", "world"));
 	
 	//TODO add formdata
@@ -53,12 +53,10 @@ public class Request {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cookies == null) ? 0 : cookies.hashCode());
-		result = prime * result
-				+ ((formData == null) ? 0 : formData.hashCode());
+		result = prime * result + ((formData == null) ? 0 : formData.hashCode());
 		result = prime * result + ((header == null) ? 0 : header.hashCode());
-		result = prime * result
-				+ ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((method == null) ? 0 : method.hashCode());
+		result = prime * result + ((location == null) ? 0 : location.get().hashCode());
+		result = prime * result + ((method == null) ? 0 : method.get().hashCode());
 		return result;
 	}
 
@@ -98,7 +96,7 @@ public class Request {
 			return false;
 		return true;
 	}
-	
+
 	
 }
 

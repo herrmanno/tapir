@@ -1,6 +1,10 @@
 package gui;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,7 +36,7 @@ public class RequestListCell extends ListCell<Request> {
 		setId("MethodLabel");
 	}};
 	private Label lbl_location = new Label() {{
-		setStyle("-fx-border-color:yellow");
+		
 	}};
 	private Pane spacer = new Pane();
 	private Button btn_req = new Button(null, new ImageView(new Image(Resources.class.getResourceAsStream("ic_label_outline_black_24dp.png"))));
@@ -78,9 +82,10 @@ public class RequestListCell extends ListCell<Request> {
 	private void fill(Request r) {
 		lbl_method.setText(r.getMethod());
 		lbl_method.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		lbl_method.getStyleClass().removeAll(getAllCssMethodClasses());
 		lbl_method.getStyleClass().add(getCssClassForMethod(r.getMethod()));
 		
-		lbl_location.setText(r.getLocation());
+		lbl_location.setText(r.getUrl());
 		btn_req.setVisible(true);
 		
 		btn_req.setOnAction(event -> 
@@ -101,6 +106,13 @@ public class RequestListCell extends ListCell<Request> {
 		this.getStyleClass().remove(cls_bb);
 	}
 
+	private static Collection<String> getAllCssMethodClasses() {
+		return new ArrayList<String>() {{
+			add("green");
+			add("red");
+		}};
+	}
+	
 	private static String getCssClassForMethod(String method) {
 		switch (method.toLowerCase()) {
 			case "get": return "green";

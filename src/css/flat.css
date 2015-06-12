@@ -1,12 +1,16 @@
+/*****************************
+ * 			Variables
+ *****************************/
+
 * {
 	-fx-bg: #fff;
 	-fx-bg-light: derive(-fx-bg, 30%);
 	-fx-bg-dark: derive(-fx-bg, -30%);
-	-fx-text: #333;
+	-fx-text: #444;
 	-fx-main: #38c;
-	-fx-main-light: derive(-fx-main, 40%);
+	-fx-main-light: derive(-fx-main, 80%);
 	-fx-main-dark: derive(-fx-main, -40%);
-	-fx-accent: #c33;
+	-fx-accent: #FFB227;
 	-fx-warn: #a00;
 }
 
@@ -14,38 +18,139 @@
 	-fx-focus-color: transparent;
 }	
 
+/*********************************
+ * 		Layout elements
+ *********************************/
+
 .root,
 .scroll-pane,
 .split-pane,
-.border-pane *
+.border-pane *,
+.hbox, .vbox
 {
 	-fx-background-color: -fx-bg;
 }
 
-.button,
-.tab
+.split-pane .split-pane-divider {
+	-fx-background-color: -fx-bg-dark;
+}
+
+
+
+/*******************************
+ * 			Controls
+ *******************************/
+ 
+
+/*
+ * Button
+ */
+
+.button
 {
 	-fx-background-color: -fx-main;
 	-fx-text-fill: -fx-text;
-	-fx-effect: dropshadow(gaussian, -fx-bg-dark, 7, .2, 1, 2);
+	-fx-effect: null;
 	-fx-background-radius: 1;
 }
 
-.text-field 
+.button.flat
+{
+	-fx-background-color: -fx-bg;
+	-fx-text-fill: -fx-main;
+	-fx-effect: null;
+}
+
+
+
+/*
+ * TextField
+ */
+ 
+.text-field,
+.text-field:focused
 {
 	-fx-background-color: transparent;
+	-fx-focus-color: transparent;
+	-fx-text-box-border: transparent;
+		
 	-fx-background-radius: 0;
 	-fx-border-width: 0 0 1 0;
-	-fx-border-color: -fx-main;
-	
+	-fx-border-color: -fx-bg-dark;
+
+	-fx-highlight-fill: -fx-main;
+	-fx-highlight-text-fill: -fx-bg;
 }
+
+.text-field:focused {
+	-fx-border-color: -fx-main;	
+}
+
+
+
+/*
+ * ComboBox
+ */
 
 .combo-box {
 	-fx-background-color: transparent;
 	-fx-background-radius: 0;
 	-fx-border-width: 0 0 1 0;
+	-fx-border-color: -fx-bg-dark;
+}
+
+.combo-box:focused {
 	-fx-border-color: -fx-main;
 }
+
+.combo-box .arrow-button .arrow {
+	-fx-background-color: -fx-bg-dark;
+}
+
+.combo-box:focused .arrow-button .arrow {
+	-fx-background-color: -fx-bg-dark;
+}
+
+
+
+/*
+ * Tab
+ */
+
+.tab,
+.tab:selected,
+.tab:focused,
+.tab:selected:focused
+{
+	-fx-background-color: -fx-bg;	
+	-fx-focus-color: transparent;
+	
+	-fx-border-color: -fx-accent;
+	-fx-border-width: 0 0 0 0;
+	
+	-fx-effect: null;
+	-fx-background-radius: 1;
+}
+
+.tab:selected {
+	-fx-border-width: 0 0 2 0;
+}
+
+.tab .focus-indicator {
+	-fx-border-color: transparent;
+}
+
+
+.tab .tab-label {
+	-fx-text-fill: -fx-text;
+	-fx-font-weight: bold;
+	-fx-focus-color: transparent;
+}
+
+.tab:selected .tab-label {
+	-fx-text-fill: -fx-main;
+}
+
 
 .tab-pane .tab-header-area .headers-region,
 .tab-pane .tab-header-area .tab-header-background
@@ -55,16 +160,144 @@
 	-fx-effect: null;
 }
 
-.table-view .column-header,
-.combo-box .arrow-button .arrow
+
+
+/*
+ * Table-View
+ */
+ 
+ 
+ .table-view
+ {
+ 	-fx-border-color: -fx-bg;
+ }
+ 
+ 
+.column-header,
+.column-header .label
 {
-	-fx-background-color: -fx-main;
+	-fx-background-color: -fx-bg;
+	-fx-border-color: -fx-bg-dark;
+	-fx-border-width: 0 0 1 0;
+	
 	-fx-text-fill: -fx-text;
 	-fx-effect: null;
-	-fx-background-radius: 0;
-	-fx-border-color: -fx-main-light;
+}
+ 
+ 
+.table-row-cell:empty
+{
+	visibility: hidden;
 }
 
-.split-pane .split-pane-divider {
-	-fx-background-color: -fx-bg-dark;
+
+.table-column
+{
+	-fx-border-color: -fx-bg-dark;
+	-fx-text-fill: -fx-text;
+	-fx-effect: null;
+	-fx-border-width: 0 1 1 0;
 }
+
+.table-column:selected {
+	-fx-border-color: -fx-bg-dark;
+}
+
+
+.table-column:last-visible
+{
+	-fx-border-width: 0 0 1 0;
+}
+
+
+.table-row-cell:selected
+{
+	-fx-background: -fx-main-light;	
+}
+
+
+
+
+
+/*
+ * ListView
+ */
+ 
+ .list-view {
+ 	-fx-background-insets: 0;
+ 	-fx-border-color: -fx-bg-dark;
+ }
+ 
+ .list-view .cell {
+ 	-fx-background-insets: 0;
+ 	-fx-border-color: -fx-bg-dark;
+ 	-fx-border-width: 0 0 1 0;
+ }
+
+
+
+
+/*
+ * ScrollBar
+ */
+ 
+ /* The main scrollbar **track** CSS class  */
+ .scroll-bar:horizontal .track,
+ .scroll-bar:vertical .track{
+	-fx-background-color:transparent;
+	-fx-border-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-border-radius:2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+ .scroll-bar:horizontal .increment-button ,
+ .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 0 10 0;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+
+ .scroll-bar:vertical .increment-button ,
+ .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 10 0 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow
+ {
+	-fx-shape: " ";	
+	-fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+ .scroll-bar:horizontal .thumb,
+ .scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-bg-dark;
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}
+
+
+
+
+/*******************************
+ * 			Helper
+ *******************************/
+
+ .z-1 {
+ 	-fx-effect: dropshadow(gaussian, -fx-bg-dark, 5, .1, 1, 2);
+ }
+ 
+ .z-2 {
+ 	-fx-effect: dropshadow(gaussian, -fx-bg-dark, 7, .2, 1, 2);
+ }
+ 
+ .z-3 {
+ 	-fx-effect: dropshadow(gaussian, -fx-bg-dark, 10, .3, 1, 2);
+ }

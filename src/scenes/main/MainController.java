@@ -2,23 +2,23 @@ package scenes.main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-
-import components.BadgePane;
 
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -29,6 +29,7 @@ import model.request.Header;
 import model.request.Request;
 import service.RequestService;
 import service.SceneService;
+import components.BadgePane;
 import event.OverlayEvent;
 import gui.Bindings;
 import gui.RequestListCell;
@@ -131,8 +132,22 @@ public class MainController implements Initializable {
 		list_requests.setCellFactory((listview) -> new RequestListCell(list_requests));
 		list_requests.getSelectionModel().selectedItemProperty().addListener(event -> {
 			Request selectedItem = list_requests.getSelectionModel().getSelectedItem();
-			requestService.request.set(selectedItem);
+			requestService.request.set(new Request(selectedItem));
 		});
+		
+		badge.setTranslateY(50);
+		badge.setTranslateX(-20);
+		
+		Alert d = new Alert(AlertType.NONE, "", ButtonType.OK);
+		d.getDialogPane().getStylesheets().add(css.CSS.class.getResource("flat.css").toExternalForm());
+		//TODO Show custom Image for Dialog
+		badge.setOnMouseClicked(event -> {
+			d.setContentText(badge.getText());
+			d.setTitle(String.format("Error on Request '%s'", requestService.request.get().getUrl()));
+			
+			d.showAndWait();
+		});
+		
 	}
 
 
@@ -208,11 +223,11 @@ public class MainController implements Initializable {
 	private void showBadge(String text) {
 		badge.setText(text);
 
-		TranslateTransition in = new TranslateTransition(Duration.millis(500), badge);
-		in.setToY(-70);
+		TranslateTransition in = new TranslateTransition(Duration.millis(300), badge);
+		in.setToY(-20);
 		
-		TranslateTransition out = new TranslateTransition(Duration.millis(500), badge);
-		out.setToY(0);
+		TranslateTransition out = new TranslateTransition(Duration.millis(300), badge);
+		out.setToY(50);
 		out.setDelay(Duration.millis(2000));
 		/*
 		in.setOnFinished(event -> {

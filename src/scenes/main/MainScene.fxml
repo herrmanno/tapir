@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
@@ -16,13 +17,13 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox>
+                  <VBox styleClass="vbox">
                      <children>
                         <HBox fillHeight="false" prefWidth="798.0" spacing="15.0">
                            <children>
                               <ComboBox fx:id="combo_method" prefWidth="100.0" promptText="Method" />
                               <TextField id="text_location" fx:id="text_location" onAction="#doRequest" promptText="location" HBox.hgrow="ALWAYS" />
-                              <Button id="btn_send" fx:id="btn_send" alignment="CENTER" mnemonicParsing="false" onAction="#doRequest" text="Send" />
+                              <Button id="btn_send" fx:id="btn_send" alignment="CENTER" mnemonicParsing="false" onAction="#doRequest" styleClass="z-2" text="Send" />
                            </children>
                            <padding>
                               <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -32,14 +33,14 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <tabs>
                                         <Tab text="Header">
                                           <content>
                                                 <VBox>
                                                    <children>
                                                       <ListView fx:id="list_header" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                                      <Button mnemonicParsing="false" prefWidth="9999.0" text="Add Header" VBox.vgrow="ALWAYS" />
+                                                      <Button mnemonicParsing="false" prefWidth="9999.0" styleClass="flat" text="Add Header" VBox.vgrow="ALWAYS" />
                                                    </children>
                                                 </VBox>
                                           </content>
@@ -59,7 +60,7 @@
                                                                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                                </columnResizePolicy>
                                                             </TableView>
-                                                            <Button fx:id="btn_add_cookie" mnemonicParsing="false" prefHeight="25.0" prefWidth="633.0" text="Add Cookie">
+                                                            <Button fx:id="btn_add_cookie" mnemonicParsing="false" prefHeight="25.0" prefWidth="633.0" styleClass="flat" text="Add Cookie">
                                                                <VBox.margin>
                                                                   <Insets />
                                                                </VBox.margin>
@@ -85,7 +86,7 @@
                                                                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                                </columnResizePolicy>
                                                             </TableView>
-                                                            <Button fx:id="btn_add_formdata" mnemonicParsing="false" prefHeight="25.0" prefWidth="630.0" text="Add Formdata" />
+                                                            <Button fx:id="btn_add_formdata" mnemonicParsing="false" prefHeight="25.0" prefWidth="630.0" styleClass="flat" text="Add Formdata" />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -114,7 +115,7 @@
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" style="-fx-border: 1px solid black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                           </content>
@@ -147,19 +148,22 @@
             </Pane>
          </top>
          <left>
-            <ListView fx:id="list_requests" focusTraversable="false" maxWidth="500.0" minWidth="100.0" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
+            <ListView fx:id="list_requests" focusTraversable="false" maxWidth="500.0" minWidth="200.0" prefHeight="200.0" prefWidth="250.0" style="-fx-border-width: 0 1 0 0;;" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
-      <AnchorPane mouseTransparent="true">
-         <children>
-            <Label fx:id="badge" focusTraversable="false" style="-fx-background-color: #0008; -fx-background-radius: 3; -fx-padding: 2 5 2 5;" text="Badge" textFill="#fffefe" AnchorPane.bottomAnchor="-50.0" AnchorPane.rightAnchor="15.0">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <VBox fx:id="overlay" alignment="CENTER" mouseTransparent="true" opacity="0.0" prefHeight="200.0" prefWidth="100.0">
+      <Label fx:id="badge" focusTraversable="false" style="-fx-background-color: #0008; -fx-background-radius: 3; -fx-padding: 2 5 2 5; -fx-max-width: 200;" text="Badge" textFill="#fffefe" StackPane.alignment="BOTTOM_RIGHT">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <AnchorPane mouseTransparent="true" />
+      <VBox fx:id="overlay" alignment="BOTTOM_RIGHT" mouseTransparent="true" opacity="0.0" prefHeight="200.0" prefWidth="100.0">
          <children>
             <ImageView fx:id="img_overlay" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
          </children>
