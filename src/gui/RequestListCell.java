@@ -3,7 +3,6 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,16 +15,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import model.request.Request;
 import resources.Resources;
 import service.RequestService;
-import service.SceneService;
+import stores.RequestStore;
 
 public class RequestListCell extends ListCell<Request> {
 
-	private static RequestService requestService = RequestService.getInstance();
-	private static SceneService sceneService = SceneService.getInstance();
+	private RequestStore store = RequestStore.getInstance();
+	private RequestService requestService = RequestService.getInstance();
+	//private SceneService sceneService = SceneService.getInstance();
 	
 	private static final String cls_bb = "border-bottom";
 	
@@ -88,9 +87,11 @@ public class RequestListCell extends ListCell<Request> {
 		lbl_location.setText(r.getUrl());
 		btn_req.setVisible(true);
 		
-		btn_req.setOnAction(event -> 
-			sceneService.mainController.doRequest(r)
-		);
+		btn_req.setOnAction(event -> { 
+			store.setRequest(r);
+			requestService.start();
+			//sceneService.mainController.doRequest(r)
+		});
 		
 		
 		this.getStyleClass().add(cls_bb);

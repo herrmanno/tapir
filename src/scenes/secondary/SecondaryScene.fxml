@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import scenes.main.components.MainData?>
+<?import com.github.herrmanno.fx.components.badgepane.BadgePane?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.secondary.SecondaryController">
+   <children>
+      <BorderPane minWidth="500.0" prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <ListView fx:id="list_requests" focusTraversable="false" maxWidth="500.0" minWidth="200.0" prefHeight="200.0" prefWidth="250.0" style="-fx-border-width: 0 1 0 0;"/>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

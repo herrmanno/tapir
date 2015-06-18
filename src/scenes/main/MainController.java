@@ -1,51 +1,48 @@
 package scenes.main;
 
+import gui.Bindings;
+import gui.RequestListCell;
+import gui.headerrow.HeaderListCell;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.github.herrmanno.fx.components.badgepane.BadgePane;
-
-import javafx.animation.TranslateTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
-import javafx.util.Duration;
+import javafx.stage.StageStyle;
 import model.request.Cookie;
 import model.request.Formdata;
 import model.request.Header;
 import model.request.Request;
+import model.response.Response;
+import scenes.main.components.MainData;
 import service.RequestService;
 import service.SceneService;
-import event.OverlayEvent;
-import gui.Bindings;
-import gui.RequestListCell;
-import gui.headerrow.HeaderListCell;
+import stores.RequestStore;
+
+import com.github.herrmanno.fx.components.badgepane.BadgePane;
 
 public class MainController implements Initializable {
 
 	private RequestService requestService = RequestService.getInstance();
+	private RequestStore store = RequestStore.getInstance();
 
 	/*
 	 * Main controls
 	 */
-	@FXML TextField text_location;	
-	@FXML ComboBox<String> combo_method;
-	@FXML Button btn_send;
+	@FXML MainData mainData;
 	
 	/*
 	 * Extra Controls
@@ -97,13 +94,13 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		setupControls();
 		
-		bindRequest(requestService.request);
+		bindRequest(store.getRequest());
 		
 		
-		bindResponse(requestService.response);
+		bindResponse(store.getResponse());
 		
 		
-		bindRequestList(requestService.requests.get());
+		bindRequestList(store.getRequests());
 		
 		
 	}
@@ -112,22 +109,25 @@ public class MainController implements Initializable {
 
 
 	private void setupControls() {
+		/*
 		combo_method.getItems().addAll("GET", "POST");
 		combo_method.setValue("GET");
 		
 		btn_send.defaultButtonProperty().bind(btn_send.focusedProperty());
+		*/
 	
 		list_header.setCellFactory((listview) -> new HeaderListCell(listview));
 		
 		list_requests.setCellFactory((listview) -> new RequestListCell(list_requests));
 		list_requests.getSelectionModel().selectedItemProperty().addListener(event -> {
 			Request selectedItem = list_requests.getSelectionModel().getSelectedItem();
-			requestService.request.set(new Request(selectedItem));
+			store.setRequest(new Request(selectedItem));
 		});
 		
 	
 		
 		Alert d = new Alert(AlertType.NONE, "", ButtonType.OK);
+		d.initStyle(StageStyle.UTILITY);
 		d.getDialogPane().getStylesheets().add(css.CSS.class.getResource("flat.css").toExternalForm());
 		pane_badge.getBadge().setOnMouseClicked(event -> {
 			d.setContentText(pane_badge.getBadge().getText());
@@ -139,32 +139,32 @@ public class MainController implements Initializable {
 
 
 
-	private  Object bindRequest(ObservableValue<? extends Request> r) {
-		if(r.getValue() == null)
+	private  Object bindRequest(Request r) {
+		if(r == null)
 			return null;
 		
 		//------- unbind
-		combo_method.valueProperty().unbind();
-		text_location.textProperty().unbind();
+		mainData.bind(r);
+		//combo_method.valueProperty().unbind();
+		//text_location.textProperty().unbind();
 		tbl_cookies.getItems().clear();
 		tbl_formdata.getItems().clear();
 		
 		
-		
-		combo_method.valueProperty().bindBidirectional(r.getValue().methodProperty());
-		text_location.textProperty().bindBidirectional(r.getValue().locationProperty());;
-		
-		
-		Bindings.bindTable(tbl_cookies, r.getValue().cookies, "name", "value");
-		Bindings.bindAdd_Button(btn_add_cookie, r.getValue().cookies, Cookie::new);
-		
-		Bindings.bindTable(tbl_formdata, r.getValue().formData, "name", "value");
-		Bindings.bindAdd_Button(btn_add_formdata, r.getValue().formData, Formdata::new);
+		//combo_method.valueProperty().bindBidirectional(r.getValue().methodProperty());
+		//text_location.textProperty().bindBidirectional(r.getValue().locationProperty());
 		
 		
-		btn_send.disableProperty().bind(r.getValue().location.isEmpty());
+		Bindings.bindTable(tbl_cookies, r.cookies, "name", "value");
+		Bindings.bindAdd_Button(btn_add_cookie, r.cookies, Cookie::new);
 		
-		requestService.request.addListener((obs, oldV, newV) -> bindRequest(obs));
+		Bindings.bindTable(tbl_formdata, r.formData, "name", "value");
+		Bindings.bindAdd_Button(btn_add_formdata, r.formData, Formdata::new);
+		
+		
+		//btn_send.disableProperty().bind(r.getValue().location.isEmpty());
+		
+		store.requestProperty().addListener((obs, oldV, newV) -> bindRequest(obs.getValue()));
 		
 		return r;
 	}
@@ -172,11 +172,11 @@ public class MainController implements Initializable {
 
 
 
-	private Object bindResponse(ObservableValue<? extends String> resp) {
-		webView.getEngine().loadContent(resp.getValue());
-		text_raw.setText(resp.getValue());
+	private Object bindResponse(Response resp) {
+		webView.getEngine().loadContent(resp.getBody());
+		text_raw.setText(resp.getBody());
 		
-		requestService.response.addListener((obs, oldV, newV) -> bindResponse(obs));
+		store.responseProperty().addListener((obs, oldV, newV) -> bindResponse(obs.getValue()));
 		
 		return resp;
 	}
@@ -188,18 +188,19 @@ public class MainController implements Initializable {
 		list_requests.setItems(requestList);
 		list_requests.scrollTo(0);
 		
-		requestService.response.addListener((obs, oldV, newV) -> bindResponse(obs));
+		//Wofür war das wohl gedacht?
+		//requestService.response.addListener((obs, oldV, newV) -> bindResponse(obs));
 	}
 
 
-	@FXML public void doRequest() {
-		doRequest(requestService.request.get());
+	public void doRequest() {
+		doRequest(store.getRequest());
 	}
 
 	
 	public void doRequest(Request r) {
 		try {
-			requestService.doRequest(r);
+			requestService.start();
 		} catch(Exception e) {
 			pane_badge.showBadge(e.getMessage());
 		}
